@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/static/js/table_bg_change_on_sign.js"></script>
+  {{ form.media }}
+  {% block title %}{% endblock %}
+</head>
+<body>
+<header>
+<table>
+  {% for a in account_list %}
+  <th>{{ a.name }}</th>
+  {% endfor %}
+  <tr>
+    {% for a in account_list %}
+      <td>{{ a.money }}</td>
+    {% endfor %}
+  </tr>
+</table>
+<div id="navigation">
+  <div id="menu">
+    <a {% block spending_tab %}{% endblock %}href='/'>Траты</a
+    ><a {% block income_tab %}{% endblock %}href='/income/'>Доходы</a
+    ><a {% block transfer_tab %}{% endblock %}href='/transfer/'>Переводы</a
+    ><a {% block analize_tab %}{% endblock %}href='/analytics/'>Анализ</a
+    ><a {% block debt_tab %}{% endblock %}href='/debt/'>Долги</a
+    ><a href='/admin/'>Admin</a>
+  </div>
+  <div id="logout">
+    <a href='/accounts/logout/?next=/{% block logout %}{% endblock %}'>Выйти</a>({{ username }})
+  </div>
+</div>
+</header>
+<div id="content">
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+$(function () {
+	$('.date').pickmeup({
+		position	: 'top',
+		hide_on_select	: false
+	});
+});

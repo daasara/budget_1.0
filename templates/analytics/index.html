@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block analize_tab %}class="tab_backlight" {% endblock %}
+{% block content %}
+<script type="text/javascript" src="/static/js/show_hide_analysis.js"></script>
+<p></p>
+<div class="calendar"></div>
+<div class="filterForm">
+  <form method="post">{% csrf_token %}
+  {{ form.errors }}
+  <div id="dateFilter">
+  {% for field in form.dateTag_fields %}
+      {{ field.label_tag }} {{ field }}
+  {% endfor %}
+  </div>
+  <div id="userFilter">
+  {% for field in form.userTag_fields %}
+      {{ field }}{{ field.label_tag }}
+  {% endfor %}
+  </div>
+  <div id="AccountFilter">
+  {% for field in form.accountTag_fields %}
+      {{ field }}{{ field.label_tag }}
+  {% endfor %}
+  </div>
+  <div id="SpendingTypeFilter">
+  {% for field in form.spendingTypeTag_fields %}
+      {{ field }}{{ field.label_tag }}
+  {% endfor %}
+</div>
+<input type="submit" value="Обновить" />
+</form>
+</div>
+{% if analysis_list %}
+  {% for a in analysis_list %}
+  <div class="analysis">
+    <h4>{{ a.title }}</h4>
+    <div class="list">
+      {% if a.data %}
+            {% for type, value in a.data %}
+	    <div id="left">{{ type }}</div>
+	    <div id="right">{{ value }}</div>
+	    <div id="center">=</div>
+            {% endfor %}
+      {% else %}
+              <li>Данных нет</li>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+<p>Нет записей</p>
+{% endif %}
+<h4>Список трат за указанный период</h4>
+{% if latest_spending_list %}
+{% for spending in latest_spending_list %}
+<li><a href='/{{ spending.pk }}/'>{{ spending }}</a></li>
+{% endfor %}
+{% else %}
+<p>Нет записей</p>
+{% endif %}
+<h4>Список доходов за указанный период</h4>
+{% if income_list %}
+{% for income in income_list %}
+<li><a href='/income/{{ income.pk }}/'>{{ income }}</a></li>
+{% endfor %}
+{% else %}
+<p>Нет записей</p>
+{% endif %}
+
+{% endblock %}

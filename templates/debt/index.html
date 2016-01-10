@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block debt_tab %}class="tab_backlight" {% endblock %}
+{% block content %}
+{% if debt_list %}
+  <ul>
+  {% for debt in debt_list %}
+    <li><a href='/debt/{{ debt.pk }}/'>{{ debt }}</a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>Нет записей</p>
+{% endif %}
+<form method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Сохранить" />
+</form>
+{% endblock %}
