@@ -6,9 +6,6 @@ from account.models import Account
 
 class CalendarWidget(forms.TextInput):
     class Media:
-        css = {
-            'all': ('/static/css/pickmeup.min.css',),
-        }
         js = ('/static/js/jquery.pickmeup.min.js',
               '/static/js/jquery.pickmeup.twitter-bootstrap.min.js',
               '/static/js/date.input.js')
@@ -35,25 +32,25 @@ class SpendingForm(forms.Form):
     )
     money = forms.IntegerField(
         label='Расход*',
-        required=True
+        required=True,
     )
     comment = forms.CharField(
         max_length=32, required=False,
-        label='комментарий'
+        label='комментарий',
     )
     owner = forms.ModelChoiceField(
         queryset=User.objects.all(),
         empty_label=None,
         required=False,
-        label='автор'
+        label='автор',
     )
     spendingType = forms.ModelChoiceField(
         queryset=SpendingType.objects.all(),
         required=True,
-        label='тип траты*'
+        label='тип траты*',
     )
     incomeType = forms.ModelChoiceField(
         queryset=Account.objects.all(),
         required=True,
-        label='источник денег'
+        label='источник денег',
     )

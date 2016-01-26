@@ -2,18 +2,56 @@
 {% block spending_tab %}class="tab_backlight" {% endblock %}
 {% block content %}
 <p></p>
-<div class="calendar"></div>
+    <div class="calendar"></div>
 <form method="post">{% csrf_token %}
-{{ form.as_p }}
+{{ form.non_field_errors }}
+<div class="fieldWrapper">
+  {{ form.date.errors }}
+  {{ form.date.label_tag }}
+  {{ form.date }}
+</div>
+<div class="fieldWrapper">
+  {{ form.money.errors }}
+  {{ form.money.label_tag }}
+  {{ form.money }}
+</div>
+<div class="fieldWrapper">
+  {{ form.comment.errors }}
+  {{ form.comment.label_tag }}
+  {{ form.comment }}
+</div>
+<div class="fieldWrapper">
+  {{ form.owner.errors }}
+  {{ form.owner.label_tag }}
+  {{ form.owner }}
+</div>
+<div class="fieldWrapper">
+  {{ form.spendingType.errors }}
+  {{ form.spendingType.label_tag }}
+  {{ form.spendingType }}
+</div>
+<div class="fieldWrapper">
+  {{ form.incomeType.errors }}
+  {{ form.incomeType.label_tag }}
+  {{ form.incomeType }}
+</div>
 <input type="submit" value="Сохранить" />
 </form>
+<section class="container">
 {% if latest_spending_list %}
-  <ul>
+  <table class="table table-striped">
   {% for spending in latest_spending_list %}
-     <li><a href='/{{ spending.pk }}/'>{{ spending }}</a></li>
+    <tr>
+      <td>{{ spending.date }}</td>
+      <td>{{ spending.owner }}</td>
+      <td>{{ spending.spendingtype }}</td>
+      <td><a href='/{{ spending.pk }}/'>{{ spending.money }}</a></td>
+      <td>{{ spending.comment }}</td>
+    </tr>
   {% endfor %}
-  </ul>
+  </table>
 {% else %}
   <p>Нет записей</p>
 {% endif %}
+</section>
 {% endblock %}
