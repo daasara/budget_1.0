@@ -10,6 +10,7 @@ class CalendarWidget(forms.TextInput):
             'all': ('/static/css/pickmeup.min.css',),
         }
         js = ('/static/js/jquery.pickmeup.min.js',
+              '/static/js/jquery.pickmeup.twitter-bootstrap.min.js',
               '/static/js/date.input.js')
 
     def __init__(self):
