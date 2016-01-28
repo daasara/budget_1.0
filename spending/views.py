@@ -22,8 +22,7 @@ def spendingView(request, *args):
         else:
             initial_form_values = generate_initial(user)
         form = SpendingForm(initial=initial_form_values)
-    l = Spending.objects.order_by('-modified')[:10]
-    l = l[::-1]
+    l = Spending.objects.order_by('-modified')[:20]
     account_list = list(Account.objects.all())\
         + list(DebtAccount.objects.all())
     context = {

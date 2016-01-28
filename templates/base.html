@@ -14,9 +14,9 @@
 </head>
 <body>
 <header>
-<table>
+<table class='table table-bordered centered-text' id='accounts'>
   {% for a in account_list %}
-  <th>{{ a.name }}</th>
+  <th class='centered-text'>{{ a.name }}</th>
   {% endfor %}
   <tr>
     {% for a in account_list %}
