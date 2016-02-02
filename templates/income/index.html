@@ -1,19 +1,51 @@
 {% extends "base.html" %}
 {% block income_tab %}class="tab_backlight" {% endblock %}
 {% block content %}
-<p></p>
-<div class="calendar"></div>
-<form method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Сохранить" />
-</form>
+<div class="calendar col-lg-2 col-lg-offset-4"></div>
+<div class='container-fluid col-lg-2'>
+  <form method="post">{% csrf_token %}
+    {% load widget_tweaks %}
+    {{ form.non_field_errors }}
+    <div class="fieldWrapper form-group field hidden">
+      {{ form.date.errors }}
+      {{ form.date|add_class:"form-control" }}
+    </div>
+    <div class="fieldWrapper form-group field">
+      {{ form.money.errors }}
+      {{ form.money|add_class:"form-control"|append_attr:"placeholder: Сумма" }}
+    </div>
+    <div class="fieldWrapper form-group field">
+      {{ form.comment.errors }}
+      {{ form.comment|add_class:"form-control"|append_attr:"placeholder: Комментарий" }}
+    </div>
+    <div class="fieldWrapper form-group field">
+      {{ form.owner.errors }}
+      {{ form.owner|add_class:"form-control" }}
+    </div>
+    <div class="fieldWrapper form-group field">
+      {{ form.incomeType.errors }}
+      {{ form.incomeType|add_class:"form-control" }}
+    </div>
+    <div class="field">
+      <input type="submit" value="Сохранить" class="btn btn-default pull-right" />
+    </div>
+  </form>
+</div>
+<div class="container-fluid">
 {% if latest_income_list %}
-  <ul>
+  <table class="table table-striped">
   {% for income in latest_income_list %}
-    <li><a href='/income/{{ income.pk }}/'>{{ income }}</a></li>
+    <tr>
+      <td>{{ income.date }}</td>
+      <td>{{ income.owner }}</td>
+      <td>{{ income.incomeType }}</td>
+      <td><a href='/income/{{ income.pk }}/'>{{ income.money }}</a></td>
+      <td>{{ income.comment }}</td>
+    </tr>
   {% endfor %}
-  </ul>
+  </table>
 {% else %}
   <p>Нет записей</p>
 {% endif %}
+</div>
 {% endblock %}

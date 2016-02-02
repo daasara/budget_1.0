@@ -24,10 +24,10 @@ def incomeView(request, *args):
         form = IncomeForm(initial=initial_form_values)
     account_list = list(Account.objects.all())\
         + list(DebtAccount.objects.all())
-    latest_income_list = Income.objects.order_by('-modified')[:10]
+    latest_income_list = Income.objects.order_by('-modified')[:20]
     context = {
         'account_list': account_list,
-        'latest_income_list': latest_income_list[::-1],
+        'latest_income_list': latest_income_list,
         'form': form,
         'username': user
     }
