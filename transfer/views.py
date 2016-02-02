@@ -24,10 +24,10 @@ def transferView(request, *args):
         form = TransferForm(initial=initial_form_values)
     account_list = list(Account.objects.all())\
         + list(DebtAccount.objects.all())
-    latest_transfer_list = Transfer.objects.order_by('-modified')[:10]
+    latest_transfer_list = Transfer.objects.order_by('-modified')[:20]
     context = {
         'account_list': account_list,
-        'latest_transfer_list': latest_transfer_list[::-1],
+        'latest_transfer_list': latest_transfer_list,
         'form': form,
         'username': user
     }
