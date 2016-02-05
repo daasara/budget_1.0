@@ -1,70 +1,97 @@
 {% extends "base.html" %}
-{% block analize_tab %}class="tab_backlight" {% endblock %}
+{% block analize_tab %}class="active"{% endblock %}
 {% block content %}
-<script type="text/javascript" src="/static/js/show_hide_analysis.js"></script>
 <p></p>
 <div class="calendar"></div>
 <div class="filterForm">
   <form method="post">{% csrf_token %}
-  {{ form.errors }}
-  <div id="dateFilter">
-  {% for field in form.dateTag_fields %}
+    {{ form.errors }}
+    <div id="dateFilter">
+      {% for field in form.dateTag_fields %}
       {{ field.label_tag }} {{ field }}
-  {% endfor %}
-  </div>
-  <div id="userFilter">
-  {% for field in form.userTag_fields %}
+      {% endfor %}
+    </div>
+    <div id="userFilter">
+      {% for field in form.userTag_fields %}
       {{ field }}{{ field.label_tag }}
-  {% endfor %}
-  </div>
-  <div id="AccountFilter">
-  {% for field in form.accountTag_fields %}
+      {% endfor %}
+    </div>
+    <div id="AccountFilter">
+      {% for field in form.accountTag_fields %}
       {{ field }}{{ field.label_tag }}
-  {% endfor %}
-  </div>
-  <div id="SpendingTypeFilter">
-  {% for field in form.spendingTypeTag_fields %}
+      {% endfor %}
+    </div>
+    <div id="SpendingTypeFilter">
+      {% for field in form.spendingTypeTag_fields %}
       {{ field }}{{ field.label_tag }}
-  {% endfor %}
+      {% endfor %}
+    </div>
+    <input type="submit" value="Обновить" />
+  </form>
 </div>
-<input type="submit" value="Обновить" />
-</form>
-</div>
-{% if analysis_list %}
-  {% for a in analysis_list %}
-  <div class="analysis">
-    <h4>{{ a.title }}</h4>
-    <div class="list">
+<section class="container-fluid">
+  <div class="row">
+    {% if analysis_list %}
+    {% for a in analysis_list %}
+    <div class='col-xs-8 col-xs-offset-2 col-lg-6 col-lg-offset-3'>
+      <div class='h6 text-center pad'><b>{{ a.title }}<span class='glyphicon glyphicon-triangle-bottom'></span></b></div>
       {% if a.data %}
-            {% for type, value in a.data %}
-	    <div id="left">{{ type }}</div>
-	    <div id="right">{{ value }}</div>
-	    <div id="center">=</div>
-            {% endfor %}
+      <div class='slide unvisible'>
+        <table class="table table-striped">
+          {% for type, value in a.data %}
+          <tr>
+            <td class='col-xs-6'>{{ type }}</td>
+            <td class='col-xs-6'>{{ value }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
       {% else %}
-              <li>Данных нет</li>
+      <div class='text-center text-warning slide unvisible'>Данных нет</div>
       {% endif %}
     </div>
+    {% endfor %}
+    {% endif %}
   </div>
-  {% endfor %}
-{% else %}
-<p>Нет записей</p>
-{% endif %}
-<h4>Список трат за указанный период</h4>
-{% if latest_spending_list %}
-{% for spending in latest_spending_list %}
-<li><a href='/{{ spending.pk }}/'>{{ spending }}</a></li>
-{% endfor %}
-{% else %}
-<p>Нет записей</p>
-{% endif %}
-<h4>Список доходов за указанный период</h4>
-{% if income_list %}
-{% for income in income_list %}
-<li><a href='/income/{{ income.pk }}/'>{{ income }}</a></li>
-{% endfor %}
-{% else %}
-<p>Нет записей</p>
-{% endif %}
-
+</section>
+<section class="container-fluid">
+  <div class='h6 text-center pad'><b>Список трат за указанный период<span class='glyphicon glyphicon-triangle-bottom'></span></b></div>
+  {% if spending_list %}
+  <div class="slide">
+    <table class="table table-striped slide">
+      {% for spending in spending_list %}
+      <tr>
+        <td>{{ spending.date }}</td>
+        <td>{{ spending.owner }}</td>
+        <td>{{ spending.spendingType }}</td>
+        <td><a href='/{{ spending.pk }}/'>{{ spending.money }}</a></td>
+        <td>{{ spending.comment }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% else %}
+  <div class='text-center text-warning slide'>Данных нет</div>
+  {% endif %}
+</section>
+<section class="container-fluid">
+  <div class='h6 text-center pad'><b>Список доходов за указанный период<span class='glyphicon glyphicon-triangle-bottom'></span></b></div>
+  {% if income_list %}
+  <div class="slide">
+    <table class="table table-striped slide">
+      {% for income in income_list %}
+      <tr>
+        <td>{{ income.date }}</td>
+        <td>{{ income.owner }}</td>
+        <td>{{ income.incomeType }}</td>
+        <td><a href='/income/{{ income.pk }}/'>{{ income.money }}</a></td>
+        <td>{{ income.comment }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% else %}
+  <div class='text-center text-warning slide'>Данных нет</div>
+  {% endif %}
+</section>
 {% endblock %}
