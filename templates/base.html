@@ -7,6 +7,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/static/js/table_bg_change_on_sign.js"></script>
+  <script type="text/javascript" src="/static/js/show_hide_analysis.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link href="/static/css/style.css" rel="stylesheet" />
   {{ form.media }}
@@ -24,21 +25,20 @@
     {% endfor %}
   </tr>
 </table>
-<div id="navigation">
-  <div id="menu">
-    <a {% block spending_tab %}{% endblock %}href='/'>Траты</a
-    ><a {% block income_tab %}{% endblock %}href='/income/'>Доходы</a
-    ><a {% block transfer_tab %}{% endblock %}href='/transfer/'>Переводы</a
-    ><a {% block analize_tab %}{% endblock %}href='/analytics/'>Анализ</a
-    ><a {% block debt_tab %}{% endblock %}href='/debt/'>Долги</a
-    ><a href='/admin/'>Admin</a>
-  </div>
-  <div id="logout">
-    <a href='/accounts/logout/?next=/{% block logout %}{% endblock %}'>Выйти</a>({{ username }})
-  </div>
-</div>
+<nav>
+  <ul class='nav nav-tabs'>
+      <li {% block spending_tab %}{% endblock %}><a href='/'>Траты</a></li>
+      <li {% block income_tab %}{% endblock %}><a href='/income/'>Доходы</a></li>
+      <li {% block transfer_tab %}{% endblock %}><a href='/transfer/'>Переводы</a></li>
+      <li {% block analize_tab %}{% endblock %}><a href='/analytics/'>Анализ</a></li>
+      <li {% block debt_tab %}{% endblock %}><a href='/debt/'>Долги</a></li>
+      <li><a href='/admin/'>Admin</a></li>
+      <li class='pull-right'><a href='/accounts/logout/?next=/'>Выйти<span>({{ username }})</span></a></li>
+    </div>
+  </ul>
+</nav>
 </header>
-<div id="content">
+<div>
   {% block content %}{% endblock %}
 </div>
 </body>

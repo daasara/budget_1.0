@@ -81,7 +81,7 @@ def analyticsView(request, *args):
         'account_list': account_list,
         'username': request.user,
         'form': form,
-        'latest_spending_list': spending_list,
+        'spending_list': spending_list,
         'income_list': income_list,
         'analysis_list': analysis_list,
     }

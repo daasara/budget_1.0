@@ -7,7 +7,7 @@ from account.models import Account
 class CalendarStartWidget(forms.TextInput):
     class Media:
         css = {
-            'all': ('/static/css/pickmeup.min.css',),
+            'all': ('/static/css/pickmeup.css',),
         }
         js = ('/static/js/jquery.pickmeup.min.js',
               '/static/js/range.input.js')
@@ -17,10 +17,11 @@ class CalendarStartWidget(forms.TextInput):
             {'class': 'start', 'size': '8'},
         )
 
+
 class CalendarEndWidget(forms.TextInput):
     class Media:
         css = {
-            'all': ('/static/css/pickmeup.min.css',),
+            'all': ('/static/css/pickmeup.css',),
         }
         js = ('/static/js/jquery.pickmeup.min.js',
               '/static/js/range.input.js')
@@ -29,6 +30,7 @@ class CalendarEndWidget(forms.TextInput):
         super().__init__(
             {'class': 'end', 'size': '8'},
         )
+
 
 class DateRangeForm(forms.Form):
     date__gte = forms.DateField(
