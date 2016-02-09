@@ -11,6 +11,10 @@
     padding-left: 5px;
 }
 
+.form {
+    padding: 30px 0;
+}
+
 .calendar {
     text-align: center;
 }

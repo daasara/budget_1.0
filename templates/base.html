@@ -15,9 +15,9 @@
 </head>
 <body>
 <header>
-<table class='table table-bordered centered-text' id='accounts'>
+<table class='table table-bordered text-center' id='accounts'>
   {% for a in account_list %}
-  <th class='centered-text'>{{ a.name }}</th>
+  <th class='text-center'>{{ a.name }}</th>
   {% endfor %}
   <tr>
     {% for a in account_list %}
@@ -38,8 +38,13 @@
   </ul>
 </nav>
 </header>
-<div>
-  {% block content %}{% endblock %}
-</div>
+<article>
+  <section class='form'>
+    {% block form %}{% endblock %}
+  </section>
+  <section class="data">
+    {% block data %}{% endblock %}
+  </section>
+</article>
 </body>
 </html>

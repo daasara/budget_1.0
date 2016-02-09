@@ -1,28 +1,29 @@
 {% extends "base.html" %}
 {% block income_tab %}class="active"{% endblock %}
-{% block content %}
-<div class="calendar col-lg-2 col-lg-offset-4"></div>
-<div class='container-fluid col-lg-2'>
+{% block form %}
+<section class='container'>
+<div class="calendar col-md-3 col-md-offset-3"></div>
+<div class='col-md-3'>
   <form method="post">{% csrf_token %}
     {% load widget_tweaks %}
     {{ form.non_field_errors }}
-    <div class="fieldWrapper form-group field hidden">
+    <div class="form-group field hidden">
       {{ form.date.errors }}
       {{ form.date|add_class:"form-control" }}
     </div>
-    <div class="fieldWrapper form-group field">
+    <div class="form-group field">
       {{ form.money.errors }}
       {{ form.money|add_class:"form-control"|append_attr:"placeholder: Сумма" }}
     </div>
-    <div class="fieldWrapper form-group field">
+    <div class="form-group field">
       {{ form.comment.errors }}
       {{ form.comment|add_class:"form-control"|append_attr:"placeholder: Комментарий" }}
     </div>
-    <div class="fieldWrapper form-group field">
+    <div class="form-group field">
       {{ form.owner.errors }}
       {{ form.owner|add_class:"form-control" }}
     </div>
-    <div class="fieldWrapper form-group field">
+    <div class="form-group field">
       {{ form.incomeType.errors }}
       {{ form.incomeType|add_class:"form-control" }}
     </div>
@@ -31,6 +32,9 @@
     </div>
   </form>
 </div>
+</section>
+{% endblock %}
+{% block data %}
 <div class="container-fluid">
 {% if latest_income_list %}
   <table class="table table-striped">

@@ -1,40 +1,52 @@
 {% extends "base.html" %}
 {% block analize_tab %}class="active"{% endblock %}
-{% block content %}
-<p></p>
+{% block form %}
+<section class="container">
 <div class="calendar"></div>
 <div class="filterForm">
   <form method="post">{% csrf_token %}
-    {{ form.errors }}
-    <div id="dateFilter">
-      {% for field in form.dateTag_fields %}
-      {{ field.label_tag }} {{ field }}
-      {% endfor %}
+    {% load widget_tweaks %}
+    {{ form.non_field_errors }}
+    <div id="dateFilter" class="form-group row">
+        {{ field.errors }}
+        <div class="col-sm-4 col-sm-offset-4">
+        {% for field in form.dateTag_fields %}
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon">{{ field.label }}</span>
+            {{ field| add_class:"form-control" }}
+          </div>
+        </div>
+        {% endfor %}
+        </div>
     </div>
-    <div id="userFilter">
+    <div id="userFilter" class="form-group col-md-4">
       {% for field in form.userTag_fields %}
-      {{ field }}{{ field.label_tag }}
+        <label class="checkbox-inline"l><input id="{{ field.id_for_label }}" type="checkbox" />{{ field.label }}</label>
       {% endfor %}
     </div>
-    <div id="AccountFilter">
+    <div id="AccountFilter" class="form-group col-md-4">
       {% for field in form.accountTag_fields %}
-      {{ field }}{{ field.label_tag }}
+      <label class="checkbox-inline"l><input id="{{ field.id_for_label }}" type="checkbox" />{{ field.label }}</label>
       {% endfor %}
     </div>
-    <div id="SpendingTypeFilter">
+    <div id="SpendingTypeFilter" class="form-group col-md-4">
       {% for field in form.spendingTypeTag_fields %}
-      {{ field }}{{ field.label_tag }}
+        <label class="checkbox-inline"l><input id="{{ field.id_for_label }}" type="checkbox" />{{ field.label }}</label>
       {% endfor %}
     </div>
-    <input type="submit" value="Обновить" />
+    <input type="submit" value="Обновить" class="btn btn-default center-block"/>
   </form>
 </div>
-<section class="container-fluid">
+</section>
+{% endblock %}
+{% block data %}
+<section class='container-fluid'>
   <div class="row">
     {% if analysis_list %}
     {% for a in analysis_list %}
     <div class='col-xs-8 col-xs-offset-2 col-lg-6 col-lg-offset-3'>
-      <div class='h6 text-center pad'><b>{{ a.title }}<span class='glyphicon glyphicon-triangle-bottom'></span></b></div>
+      <div class='h6 text-center pad'><b>{{ a.title }}<span class="caret"></span></b></div>
       {% if a.data %}
       <div class='slide unvisible'>
         <table class="table table-striped">
@@ -53,9 +65,7 @@
     {% endfor %}
     {% endif %}
   </div>
-</section>
-<section class="container-fluid">
-  <div class='h6 text-center pad'><b>Список трат за указанный период<span class='glyphicon glyphicon-triangle-bottom'></span></b></div>
+  <div class='h6 text-center pad'><b>Список трат за указанный период<span class="caret"></span></b></div>
   {% if spending_list %}
   <div class="slide">
     <table class="table table-striped slide">
@@ -75,7 +85,7 @@
   {% endif %}
 </section>
 <section class="container-fluid">
-  <div class='h6 text-center pad'><b>Список доходов за указанный период<span class='glyphicon glyphicon-triangle-bottom'></span></b></div>
+  <div class='h6 text-center pad'><b>Список доходов за указанный период<span class="caret"></span></b></div>
   {% if income_list %}
   <div class="slide">
     <table class="table table-striped slide">
