@@ -9,9 +9,9 @@
     {{ form.non_field_errors }}
     <div id="dateFilter" class="form-group row">
         {{ field.errors }}
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
         {% for field in form.dateTag_fields %}
-        <div class="col-md-6">
+        <div class="col-sm-6">
           <div class="input-group">
             <span class="input-group-addon">{{ field.label }}</span>
             {{ field| add_class:"form-control" }}
@@ -20,19 +20,22 @@
         {% endfor %}
         </div>
     </div>
-    <div id="userFilter" class="form-group col-md-4">
+    <div class="filter form-group col-sm-4 bg-warning">
+      <h6>Фильтр по пользователям</h6>
       {% for field in form.userTag_fields %}
-        <label class="checkbox-inline"l><input id="{{ field.id_for_label }}" type="checkbox" />{{ field.label }}</label>
+      <label class="checkbox-inline col-sm-12"l>{{ field }}{{ field.label }}</label>
       {% endfor %}
     </div>
-    <div id="AccountFilter" class="form-group col-md-4">
+    <div class="filter form-group col-sm-4 bg-success">
+      <h6>Фильтр по кошелькам</h6>
       {% for field in form.accountTag_fields %}
-      <label class="checkbox-inline"l><input id="{{ field.id_for_label }}" type="checkbox" />{{ field.label }}</label>
+      <label class="checkbox-inline col-sm-12">{{ field }}{{ field.label }}</label>
       {% endfor %}
     </div>
-    <div id="SpendingTypeFilter" class="form-group col-md-4">
+    <div class="filter form-group col-sm-4 bg-info">
+      <h6>Фильтр по типам трат</h6>
       {% for field in form.spendingTypeTag_fields %}
-        <label class="checkbox-inline"l><input id="{{ field.id_for_label }}" type="checkbox" />{{ field.label }}</label>
+      <label class="checkbox-inline col-sm-12">{{ field }}{{ field.label }}</label>
       {% endfor %}
     </div>
     <input type="submit" value="Обновить" class="btn btn-default center-block"/>

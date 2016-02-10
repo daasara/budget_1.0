@@ -29,6 +29,10 @@
     display: none;
 }
 
+.filter .checkbox-inline+.checkbox-inline {
+    margin-left: 0;
+}
+
 @media(max-width: 992px) {
   .calendar {
     font-size: 1.2em;
